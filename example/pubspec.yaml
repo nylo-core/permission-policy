@@ -1,0 +1,21 @@
+name: permission_policy_example
+description: Demonstrates how to use Permission policy.
+
+environment:
+  sdk: '>=2.19.0 <3.0.0'
+
+dependencies:
+  nylo_support: ^5.14.0
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  permission_policy:
+    path: ../
+
+flutter:
+
+  uses-material-design: true
