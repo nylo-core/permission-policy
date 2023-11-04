@@ -50,32 +50,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   UserPermissions(), // This widget will show the users current permissions
                 ],
               ),
-
               RoleSelector(onUpdate: () {
-                setState(() {
-
-                });
+                setState(() {});
               }),
-
-              RoleView(widgetMap: () => {
-                "Admin": Text("The Admin UI"),
-                "Subscriber": Text("The Subscriber UI"),
-                "User": Text("The User UI")
-              }),
-
+              RoleView(
+                  widgetMap: () => {
+                        "Admin": Text("The Admin UI"),
+                        "Subscriber": Text("The Subscriber UI"),
+                        "User": Text("The User UI")
+                      }),
               PermissionView(
                   child: Text("Join the Pro plan"),
                   permissions: ['can_subscribe']),
-
               PermissionView(
                   child: Text("Unsubscribe from the Pro plan"),
                   permissions: ['can_unsubscribe']),
-
               MaterialButton(
                 onPressed: () async {
                   await PermissionPolicy.removeRole();
-                  setState(() {
-                  });
+                  setState(() {});
                 },
                 child: Text("Clear Roles"),
               )
