@@ -1,8 +1,6 @@
 # Role and Permissions for Flutter
 
 [![pub package](https://img.shields.io/pub/v/permission_policy.svg)](https://pub.dartlang.org/packages/permission_policy)
-[![Build Status](https://travis-ci.org/nylo-core/permission-policy.svg?branch=master)](https://travis-ci.org/nylo-core/permission-policy)
-[![codecov](https://codecov.io/gh/nylo-core/permission-policy/branch/master/graph/badge.svg)](https://codecov.io/gh/nylo-core/permission-policy)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
 
 Permission policy helps you manage role and permissions in your Flutter application.
