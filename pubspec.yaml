@@ -6,9 +6,9 @@ repository: https://github.com/nylo-core/permission_policy
 funding:
   - https://github.com/sponsors/agordn52
 topics:
-  - roles and permissions
+  - roles
   - permissions
-  - permissions policy
+  - permissions-policy
 
 environment:
   sdk: '>=3.1.4 <4.0.0'
