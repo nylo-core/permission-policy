@@ -142,7 +142,7 @@ Add the following to your `pubspec.yaml` file:
 
 ``` yaml
 dependencies:
-  permission_policy: ^1.0.1
+  permission_policy: ^1.0.2
 ```
 
 or with Dart:
@@ -267,4 +267,4 @@ Please see [CHANGELOG](https://github.com/nylo-core/permission-policy/blob/maste
 
 ## Licence
 
-The MIT License (MIT). Please view the [License](https://github.com/nylo-core/nylo/blob/5.x/LICENSE) File for more information.
+The MIT License (MIT). Please view the [License](https://github.com/nylo-core/permission-policy/blob/main/LICENSE) File for more information.

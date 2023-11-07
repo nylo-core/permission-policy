@@ -1,3 +1,7 @@
+## 1.0.2 - 2023-11-07
+
+* Update Readme
+
 ## 1.0.1 - 2023-11-07
 
 * Update Readme
