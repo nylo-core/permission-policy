@@ -76,7 +76,7 @@ Widget build(BuildContext context) {
 ```
 
 ``` dart
-// [UserPermissions] This widget will show the users current permissions
+// [RoleSelector] This widget will allow the user to select a role
 @override
 Widget build(BuildContext context) {
   return Scaffold(
@@ -141,10 +141,8 @@ Widget build(BuildContext context) {
 Add the following to your `pubspec.yaml` file:
 
 ``` yaml
-
 dependencies:
-  permission_policy: ^0.1.0
-
+  permission_policy: ^1.0.1
 ```
 
 or with Dart:
@@ -160,34 +158,49 @@ The package is very simple to use. You can add roles and permissions to the perm
 ### Add roles and permissions
 
 ``` dart
-
-// Add roles and permissions to the permission policy
-RoleAndPermissions roleAndPermissions = {
-      "Admin": ['admin'],
-      "Subscriber": ['can_unsubscribe', 'view_exclusive_content'],
-      "User": ['can_subcribe', 'view_content'],
-};
-PermissionPolicy.instance.addRoles(roleAndPermissions);
-
-```
-
-You can then check if a user has a role or permission.
-
-``` dart
-// Check if a user has a role in your Widget
 import 'package:flutter/material.dart';
-import 'package:nylo_framework/nylo_framework.dart';
+import 'package:nylo_support/helpers/extensions.dart';
 import 'package:permission_policy/permission_policy.dart';
 
-// Check if a user has a role in your Widget
+void main() {
+  // Add roles and permissions to the permission policy
+  RoleAndPermissions roleAndPermissions = {
+    "Admin": ['admin'],
+    "Subscriber": ['can_unsubscribe', 'view_exclusive_content'],
+    "User": ['can_subcribe', 'view_content'],
+  };
+  PermissionPolicy.instance.addRoles(roleAndPermissions);
 
-class PermissionPage extends NyPage {
+  runApp(MyApp());
+}
 
-  static String path = '/permission';
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    print('object');
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Permission Policy")),
       body: SafeArea(
@@ -209,29 +222,27 @@ class PermissionPage extends NyPage {
                   UserPermissions(), // This widget will show the users current permissions
                 ],
               ),
-
-              RoleSelector(onUpdate: () {
-                refreshPage(); // Refresh the page when the user selects a role
-              }),
-
-              RoleView(widgetMap: () => {
-                "Admin": Text("The Admin UI"),
-                "Subscriber": Text("The Subscriber UI"),
-                "User": Text("The User UI")
-              }),
-
+              Expanded(
+                child: RoleSelector(onUpdate: () {
+                  setState(() {});
+                }),
+              ),
+              RoleView(
+                  widgetMap: () => {
+                        "Admin": Text("The Admin UI"),
+                        "Subscriber": Text("The Subscriber UI"),
+                        "User": Text("The User UI")
+                      }),
               PermissionView(
                   child: Text("Join the Pro plan"),
                   permissions: ['can_subscribe']),
-
               PermissionView(
                   child: Text("Unsubscribe from the Pro plan"),
                   permissions: ['can_unsubscribe']),
-
               MaterialButton(
                 onPressed: () async {
                   await PermissionPolicy.removeRole();
-                  refreshPage();
+                  setState(() {});
                 },
                 child: Text("Clear Roles"),
               )
@@ -244,7 +255,7 @@ class PermissionPage extends NyPage {
 }
 ```
 
-If the user has the role of **Admin**, they will be able to see any PermissionView widgets.
+If the user has the role of **Admin**, they will be able to see any `PermissionView` widgets.
 
 Try the [example](/example) app to see how it works.
 
