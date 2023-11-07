@@ -2,28 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:nylo_support/helpers/extensions.dart';
 import 'package:permission_policy/permission_policy.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  // Add roles and permissions to the permission policy
+  RoleAndPermissions roleAndPermissions = {
+    "Admin": ['admin'],
+    "Subscriber": ['can_unsubscribe', 'view_exclusive_content'],
+    "User": ['can_subcribe', 'view_content'],
+  };
+  PermissionPolicy.instance.addRoles(roleAndPermissions);
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Permission Policy',
+      title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
-      home: MyHomePage(title: 'Permission Policy'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -50,9 +62,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   UserPermissions(), // This widget will show the users current permissions
                 ],
               ),
-              RoleSelector(onUpdate: () {
-                setState(() {});
-              }),
+              Expanded(
+                child: RoleSelector(onUpdate: () {
+                  setState(() {});
+                }),
+              ),
               RoleView(
                   widgetMap: () => {
                         "Admin": Text("The Admin UI"),

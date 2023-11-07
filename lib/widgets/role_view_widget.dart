@@ -34,7 +34,7 @@ class RoleView extends StatelessWidget {
             }
             return const SizedBox.shrink();
           }
-          return widgetMap()[role] ?? SizedBox.shrink();
+          return widgetMap()[role] ?? const SizedBox.shrink();
         },
         loading: loading == null ? const SizedBox.shrink() : loading!());
   }

@@ -1,6 +1,9 @@
 library permission_policy;
 
+import 'package:flutter/cupertino.dart';
+import 'package:nylo_support/helpers/backpack.dart';
 import 'package:nylo_support/helpers/helper.dart';
+import 'package:nylo_support/nylo.dart';
 import 'package:permission_policy/typedefs.dart';
 export 'package:permission_policy/typedefs.dart';
 export 'package:permission_policy/widgets/permission_view.dart';
@@ -25,7 +28,14 @@ class PermissionPolicy {
   RoleAndPermissions _roleAndPermissions = {};
 
   /// Adds roles to Permission policy
-  addRoles(RoleAndPermissions roles) {
+  void addRoles(RoleAndPermissions roles) {
+    // Initialize Nylo
+    if (!Backpack.instance.isNyloInitialized()) {
+      Nylo nylo = Nylo();
+      nylo.appLoader = const CupertinoActivityIndicator();
+      Backpack.instance.set('nylo', nylo);
+    }
+
     _roleAndPermissions = roles;
   }
 
@@ -46,6 +56,12 @@ class PermissionPolicy {
   /// Assigns a new role to a user
   static giveRole(String role) async {
     await NyStorage.store(storageKey, role);
+  }
+
+  /// Checks if the user has a [role]
+  static Future<bool> hasRole(String role) async {
+    String roleFromPermissionPolicy = await PermissionPolicy.getRole();
+    return roleFromPermissionPolicy == role;
   }
 
   /// Checks if the user has a [permission]

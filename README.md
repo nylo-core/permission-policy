@@ -18,18 +18,23 @@ RoleAndPermissions roleAndPermissions = {
       "Developer Manager": ['view_apps'],
       "Marketing": ['view_media'],
       "Project Manager": ["edit_projects"]
-    };
+};
 PermissionPolicy.instance.addRoles(roleAndPermissions);
 ```
 
 ``` dart
+// Get the users current role
+await PermissionPolicy.getRole();
+```
+
+``` dart
 // Check if a user has a role
-await PermissionPolicy.instance.hasRole("Admin");
+await PermissionPolicy.hasRole('Admin');
 ```
 
 ``` dart
 // Check if a user has a permission
-await PermissionPolicy.instance.hasPermission("view_revenue");
+await PermissionPolicy.hasPermission('view_revenue');
 ```
 
 ``` dart
@@ -40,6 +45,84 @@ await PermissionPolicy.giveRole("Admin");
 ``` dart
 // Remove a role from the user
 await PermissionPolicy.removeRole();
+```
+
+### Widgets
+
+``` dart
+// [UserRole] This widget will show the users current role
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+      appBar: AppBar(title: Text("Permission Policy")),
+      body: SafeArea(
+        child: UserRole() // This widget will show the users current role
+      )
+  );
+}
+```
+
+``` dart
+// [UserPermissions] This widget will show the users current permissions
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+      appBar: AppBar(title: Text("Permission Policy")),
+      body: SafeArea(
+        child: UserPermissions() // This widget will show the users current permissions
+      )
+  );
+}
+```
+
+``` dart
+// [UserPermissions] This widget will show the users current permissions
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+      appBar: AppBar(title: Text("Permission Policy")),
+      body: SafeArea(
+        child: RoleSelector(onUpdate: () {
+          // onUpdate is called after the user selects a role
+        }),
+      )
+  );
+}
+```
+
+``` dart
+// [RoleView] This widget will display a widget based on the users current role
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+      appBar: AppBar(title: Text("Permission Policy")),
+      body: SafeArea(
+        child: RoleView(
+          widgetMap: () => {
+            "Admin": Text("The Admin UI"),
+            "Subscriber": Text("The Subscriber UI"),
+            "User": Text("The User UI")
+          }, 
+          defaultView: () => Text("The default UI")), // if the user does not have a role, the defaultView will be shown
+      )
+  );
+}
+```
+
+``` dart
+// [PermissionView] This widget will show a widget if the user has the correct permissions
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+      appBar: AppBar(title: Text("Permission Policy")),
+      body: SafeArea(
+        child: PermissionView(
+          child: Text("Join the Pro plan"),
+          permissions: ['can_subscribe']
+        ),
+      )
+  );
+}
 ```
 
 ## Features
@@ -85,7 +168,7 @@ RoleAndPermissions roleAndPermissions = {
       "User": ['can_subcribe', 'view_content'],
 };
 PermissionPolicy.instance.addRoles(roleAndPermissions);
-  
+
 ```
 
 You can then check if a user has a role or permission.
