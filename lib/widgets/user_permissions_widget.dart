@@ -32,13 +32,18 @@ class _UserPermissionsState extends NyState<UserPermissions> {
       color: Colors.black12,
       child: Center(
         child: NyFutureBuilder(
-          future: PermissionPolicy.getRole(),
-          child: (context, role) {
-            if (role == null || role == "") {
+          future: PermissionPolicy.getRoles(),
+          child: (context, roles) {
+            if (roles == null || roles.isEmpty) {
               return const SizedBox.shrink();
             }
-            List<String> permissions =
-                PermissionPolicy.instance.findPermissionsForRole(role);
+
+            List<String> permissions = [];
+            for (var role in roles) {
+              List<String> allPermissionsForRole =
+                  PermissionPolicy.instance.findPermissionsForRole(role);
+              permissions.addAll(allPermissionsForRole);
+            }
 
             return Text(
               permissions.join(", ").toString(),

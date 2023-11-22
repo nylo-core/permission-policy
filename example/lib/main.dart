@@ -7,7 +7,7 @@ void main() {
   RoleAndPermissions roleAndPermissions = {
     "Admin": ['admin'],
     "Subscriber": ['can_unsubscribe', 'view_exclusive_content'],
-    "User": ['can_subcribe', 'view_content'],
+    "User": ['can_subscribe', 'view_content'],
   };
   PermissionPolicy.instance.addRoles(roleAndPermissions);
 
@@ -39,6 +39,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // This is a simple example of how to use the permission policy.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,36 +57,57 @@ class _MyHomePageState extends State<MyHomePage> {
                 physics: NeverScrollableScrollPhysics(),
                 children: [
                   Text("Your role").fontWeightBold(),
-                  UserRole(), // This widget will show the users current role
+                  UserRoles(), // This widget will show the users current role
 
                   Text("Your Permissions").fontWeightBold(),
                   UserPermissions(), // This widget will show the users current permissions
                 ],
               ),
               Expanded(
-                child: RoleSelector(onUpdate: () {
-                  setState(() {});
-                }),
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black12, width: 2)),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Text("Select a role"),
+                      ),
+                      Expanded(
+                        child: RoleSelector(onUpdate: () {
+                          setState(() {});
+                        }),
+                      )
+                    ],
+                  ),
+                ),
               ),
               RoleView(
-                  widgetMap: () => {
-                        "Admin": Text("The Admin UI"),
-                        "Subscriber": Text("The Subscriber UI"),
-                        "User": Text("The User UI")
-                      }),
+                roles: ['user', 'subscriber'],
+                child: Text("The user and subscriber UI"),
+              ),
               PermissionView(
-                  child: Text("Join the Pro plan"),
+                  child: Text("You can subscribe"),
                   permissions: ['can_subscribe']),
               PermissionView(
-                  child: Text("Unsubscribe from the Pro plan"),
+                  child: Text("You can unsubscribe"),
                   permissions: ['can_unsubscribe']),
-              MaterialButton(
-                onPressed: () async {
-                  await PermissionPolicy.removeRole();
-                  setState(() {});
-                },
-                child: Text("Clear Roles"),
-              )
+              PermissionView(
+                  child: Text("You can view Content 🚀"),
+                  permissions: ['view_content']),
+              PermissionView(
+                  child: Text("You can view exclusive Content 🎩"),
+                  permissions: ['view_exclusive_content']),
+              Divider(),
+              ...PermissionPolicy.instance.assignableRoles().map((role) {
+                return MaterialButton(
+                  onPressed: () async {
+                    await PermissionPolicy.removeRole(role);
+                    setState(() {});
+                  },
+                  child: Text("Remove [$role] Role"),
+                );
+              })
             ],
           ),
         ),

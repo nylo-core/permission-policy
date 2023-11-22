@@ -7,35 +7,42 @@ import 'package:permission_policy/permission_policy.dart';
 /// Example:
 /// ```dart
 /// RoleView(
-/// widgetMap: () => {
-///   "admin": Text("Admin"),
-///   "user": Text("User"),
-/// },
-/// defaultView: () => Text("No role assigned"),
+/// roles: ["user", "subscriber"],
+/// defaultView: Text("No role assigned"),
+/// child: Text("User or Subscriber"),
 /// )
 /// ```
 class RoleView extends StatelessWidget {
   const RoleView(
-      {Key? key, required this.widgetMap, this.defaultView, this.loading})
+      {Key? key,
+      required this.roles,
+      required this.child,
+      this.defaultView,
+      this.loading})
       : super(key: key);
 
-  final Widget Function()? defaultView;
-  final Widget Function()? loading;
-  final Map<String, Widget> Function() widgetMap;
+  final Widget? loading, defaultView;
+  final List<String> roles;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
     return NyFutureBuilder(
-        future: PermissionPolicy.getRole(),
-        child: (context, role) {
-          if (role == null || role == "") {
+        future: PermissionPolicy.getRoles(),
+        child: (context, roles) {
+          if (roles == null || roles.isEmpty) {
             if (defaultView != null) {
-              return defaultView!();
+              return defaultView!;
             }
             return const SizedBox.shrink();
           }
-          return widgetMap()[role] ?? const SizedBox.shrink();
+          for (var role in roles) {
+            if (this.roles.contains(role)) {
+              return child;
+            }
+          }
+          return const SizedBox.shrink();
         },
-        loading: loading == null ? const SizedBox.shrink() : loading!());
+        loading: loading == null ? const SizedBox.shrink() : loading!);
   }
 }

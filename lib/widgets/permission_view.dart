@@ -17,30 +17,24 @@ class PermissionView extends StatelessWidget {
       : super(key: key);
 
   final List<String> permissions;
-  final Widget Function()? loading;
+  final Widget? loading;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
     return NyFutureBuilder(
-        future: PermissionPolicy.getRole(),
-        child: (context, role) {
-          if (role == null || role == "") {
+        future: PermissionPolicy.containsPermissions(permissions),
+        child: (context, containsPermissions) {
+          if (containsPermissions == null || containsPermissions == false) {
             return const SizedBox.shrink();
           }
-          if (role.toLowerCase() == "admin") {
+
+          if (containsPermissions == true) {
             return child;
           }
-          List<String> userPermissions =
-              PermissionPolicy.instance.findPermissionsForRole(role);
 
-          for (var userPermission in userPermissions) {
-            if (permissions.contains(userPermission)) {
-              return child;
-            }
-          }
           return const SizedBox.shrink();
         },
-        loading: loading == null ? const SizedBox.shrink() : loading!());
+        loading: loading ?? const SizedBox.shrink());
   }
 }

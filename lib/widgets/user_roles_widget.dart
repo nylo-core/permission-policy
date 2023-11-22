@@ -5,18 +5,18 @@ import 'package:nylo_support/widgets/ny_state.dart';
 import 'package:permission_policy/permission_policy.dart';
 
 /// UserRole is a widget that shows the role for the current user.
-class UserRole extends StatefulWidget {
-  const UserRole({Key? key}) : super(key: key);
+class UserRoles extends StatefulWidget {
+  const UserRoles({Key? key}) : super(key: key);
 
-  static String state = "user_role";
+  static String state = "user_roles";
 
   @override
-  _UserRoleState createState() => _UserRoleState();
+  _UserRolesState createState() => _UserRolesState();
 }
 
-class _UserRoleState extends NyState<UserRole> {
-  _UserRoleState() {
-    stateName = UserRole.state;
+class _UserRolesState extends NyState<UserRoles> {
+  _UserRolesState() {
+    stateName = UserRoles.state;
   }
 
   @override
@@ -32,13 +32,13 @@ class _UserRoleState extends NyState<UserRole> {
       color: Colors.black12,
       child: Center(
         child: NyFutureBuilder(
-          future: PermissionPolicy.getRole(),
-          child: (context, role) {
-            if (role == null) {
+          future: PermissionPolicy.getRoles(),
+          child: (context, roles) {
+            if (roles == null || roles.isEmpty) {
               return const SizedBox.shrink();
             }
             return Text(
-              role,
+              roles.join(", ").toString(),
               textAlign: TextAlign.center,
             ).fontWeightBold();
           },

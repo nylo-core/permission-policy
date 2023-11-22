@@ -13,18 +13,17 @@ It works on Android, iOS, macOS, linux, windows and web.
 ``` dart
 // Add roles and permissions to the permission policy
 RoleAndPermissions roleAndPermissions = {
-      "Admin": ['admin'],
-      "Sales Manager": ['view_revenue', 'view_apps'],
-      "Developer Manager": ['view_apps'],
-      "Marketing": ['view_media'],
-      "Project Manager": ["edit_projects"]
-};
+    "Admin": ['admin'],
+    "Subscriber": ['can_unsubscribe', 'view_exclusive_content'],
+    "User": ['can_subscribe', 'view_content'],
+    "Sales Manager": ['view_revenue', 'view_apps'],
+  };
 PermissionPolicy.instance.addRoles(roleAndPermissions);
 ```
 
 ``` dart
-// Get the users current role
-await PermissionPolicy.getRole();
+// Get the user's current roles
+await PermissionPolicy.getRoles();
 ```
 
 ``` dart
@@ -44,19 +43,24 @@ await PermissionPolicy.giveRole("Admin");
 
 ``` dart
 // Remove a role from the user
-await PermissionPolicy.removeRole();
+await PermissionPolicy.removeRole("Subscriber");
+```
+
+``` dart
+// Clear all roles from the user
+await PermissionPolicy.clearRoles();
 ```
 
 ### Widgets
 
 ``` dart
-// [UserRole] This widget will show the users current role
+// [UserRoles] This widget will show the user's current roles
 @override
 Widget build(BuildContext context) {
   return Scaffold(
       appBar: AppBar(title: Text("Permission Policy")),
       body: SafeArea(
-        child: UserRole() // This widget will show the users current role
+        child: UserRoles() // This widget will show the user's current roles
       )
   );
 }
@@ -98,12 +102,9 @@ Widget build(BuildContext context) {
       appBar: AppBar(title: Text("Permission Policy")),
       body: SafeArea(
         child: RoleView(
-          widgetMap: () => {
-            "Admin": Text("The Admin UI"),
-            "Subscriber": Text("The Subscriber UI"),
-            "User": Text("The User UI")
-          }, 
-          defaultView: () => Text("The default UI")), // if the user does not have a role, the defaultView will be shown
+            roles: ['user', 'subscriber'], // if the user has the role of user or subscriber, the child will be shown
+          child: Text("A user or subscriber"),
+        ),
       )
   );
 }
@@ -142,7 +143,7 @@ Add the following to your `pubspec.yaml` file:
 
 ``` yaml
 dependencies:
-  permission_policy: ^1.0.2
+  permission_policy: ^1.1.0
 ```
 
 or with Dart:
@@ -216,10 +217,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 physics: NeverScrollableScrollPhysics(),
                 children: [
                   Text("Your role").fontWeightBold(),
-                  UserRole(), // This widget will show the users current role
+                  UserRoles(), // This widget will show the user's current roles
 
                   Text("Your Permissions").fontWeightBold(),
-                  UserPermissions(), // This widget will show the users current permissions
+                  UserPermissions(), // This widget will show the user's current permissions
                 ],
               ),
               Expanded(
@@ -228,11 +229,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 }),
               ),
               RoleView(
-                  widgetMap: () => {
-                        "Admin": Text("The Admin UI"),
-                        "Subscriber": Text("The Subscriber UI"),
-                        "User": Text("The User UI")
-                      }),
+                  roles: ['user', 'subscriber'],
+                  child: Text("The user and subscriber UI"),
+              ),
               PermissionView(
                   child: Text("Join the Pro plan"),
                   permissions: ['can_subscribe']),
@@ -241,7 +240,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   permissions: ['can_unsubscribe']),
               MaterialButton(
                 onPressed: () async {
-                  await PermissionPolicy.removeRole();
+                  await PermissionPolicy.removeRole("subscriber");
+                  
                   setState(() {});
                 },
                 child: Text("Clear Roles"),

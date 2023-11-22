@@ -5,10 +5,9 @@ import 'package:permission_policy/permission_policy.dart';
 /// RoleSelector is a widget that shows a list of roles that can be assigned to
 /// a user.
 class RoleSelector extends StatelessWidget {
-  const RoleSelector({Key? key, this.onUpdate, this.childItem})
-      : super(key: key);
+  const RoleSelector({Key? key, this.onUpdate, this.builder}) : super(key: key);
 
-  final Widget Function(String data)? childItem;
+  final Widget Function(String data)? builder;
   final Function()? onUpdate;
 
   @override
@@ -20,8 +19,8 @@ class RoleSelector extends StatelessWidget {
         return const Divider();
       },
       child: (context, role) {
-        if (childItem != null) {
-          return childItem!(role);
+        if (builder != null) {
+          return builder!(role);
         }
         return MaterialButton(
             child: Text(role),

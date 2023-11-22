@@ -1,3 +1,12 @@
+## 1.1.0 - 2023-11-22
+
+* Ability to give users multiple roles
+* Refactor `RoleViews` widget
+* New `clearRoles` helper added to the `PermissionPolicy` class
+* Update example directory
+* Update Readme
+* Update pubspec.yaml
+
 ## 1.0.2 - 2023-11-07
 
 * Update Readme
