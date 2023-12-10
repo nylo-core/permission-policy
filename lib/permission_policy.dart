@@ -32,7 +32,7 @@ class PermissionPolicy {
     // Initialize Nylo
     if (!Backpack.instance.isNyloInitialized()) {
       Nylo nylo = Nylo();
-      nylo.appLoader = const CupertinoActivityIndicator();
+      nylo.addLoader(const CupertinoActivityIndicator());
       Backpack.instance.set('nylo', nylo);
     }
 

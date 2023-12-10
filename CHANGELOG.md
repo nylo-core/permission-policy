@@ -1,3 +1,7 @@
+## 1.1.1 - 2023-12-10 
+
+* Update pubspec.yaml
+
 ## 1.1.0 - 2023-11-22
 
 * Ability to give users multiple roles
