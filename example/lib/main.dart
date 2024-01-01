@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nylo_support/helpers/extensions.dart';
 import 'package:permission_policy/permission_policy.dart';
 
 void main() {
@@ -11,7 +10,7 @@ void main() {
   };
   PermissionPolicy.instance.addRoles(roleAndPermissions);
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -43,10 +42,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Permission Policy")),
+      appBar: AppBar(title: const Text("Permission Policy")),
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,12 +53,12 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               ListView(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  Text("Your role").fontWeightBold(),
+                physics: const NeverScrollableScrollPhysics(),
+                children: const [
+                  Text("Your role"),
                   UserRoles(), // This widget will show the users current role
 
-                  Text("Your Permissions").fontWeightBold(),
+                  Text("Your Permissions"),
                   UserPermissions(), // This widget will show the users current permissions
                 ],
               ),
@@ -69,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       border: Border.all(color: Colors.black12, width: 2)),
                   child: Column(
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.symmetric(vertical: 16),
                         child: Text("Select a role"),
                       ),
@@ -82,23 +81,23 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              RoleView(
+              const RoleView(
                 roles: ['user', 'subscriber'],
                 child: Text("The user and subscriber UI"),
               ),
-              PermissionView(
-                  child: Text("You can subscribe"),
-                  permissions: ['can_subscribe']),
-              PermissionView(
-                  child: Text("You can unsubscribe"),
-                  permissions: ['can_unsubscribe']),
-              PermissionView(
-                  child: Text("You can view Content 🚀"),
-                  permissions: ['view_content']),
-              PermissionView(
-                  child: Text("You can view exclusive Content 🎩"),
-                  permissions: ['view_exclusive_content']),
-              Divider(),
+              const PermissionView(
+                  permissions: ['can_subscribe'],
+                  child: Text("You can subscribe")),
+              const PermissionView(
+                  permissions: ['can_unsubscribe'],
+                  child: Text("You can unsubscribe")),
+              const PermissionView(
+                  permissions: ['view_content'],
+                  child: Text("You can view Content 🚀")),
+              const PermissionView(
+                  permissions: ['view_exclusive_content'],
+                  child: Text("You can view exclusive Content 🎩")),
+              const Divider(),
               ...PermissionPolicy.instance.assignableRoles().map((role) {
                 return MaterialButton(
                   onPressed: () async {

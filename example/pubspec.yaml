@@ -5,15 +5,15 @@ environment:
   sdk: '>=2.19.0 <3.0.0'
 
 dependencies:
+  permission_policy:
+    path: ../
   flutter:
     sdk: flutter
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  permission_policy:
-    path: ../
+  flutter_lints: ^3.0.1
 
 flutter:
 

@@ -3,6 +3,7 @@
 * Update license date
 * Update pubspec.yaml
 * Add GitHub actions
+* Fix dart analysis issues
 
 ## [1.1.1] - 2023-12-10 
 

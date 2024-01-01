@@ -6,12 +6,12 @@ import 'package:permission_policy/permission_policy.dart';
 
 /// UserRole is a widget that shows the role for the current user.
 class UserRoles extends StatefulWidget {
-  const UserRoles({Key? key}) : super(key: key);
+  const UserRoles({super.key});
 
   static String state = "user_roles";
 
   @override
-  _UserRolesState createState() => _UserRolesState();
+  createState() => _UserRolesState();
 }
 
 class _UserRolesState extends NyState<UserRoles> {

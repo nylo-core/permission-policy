@@ -6,12 +6,12 @@ import 'package:permission_policy/permission_policy.dart';
 
 /// UserPermissions is a widget that shows the permissions for the current user.
 class UserPermissions extends StatefulWidget {
-  const UserPermissions({Key? key}) : super(key: key);
+  const UserPermissions({super.key});
 
   static String state = "user_permissions";
 
   @override
-  _UserPermissionsState createState() => _UserPermissionsState();
+  createState() => _UserPermissionsState();
 }
 
 class _UserPermissionsState extends NyState<UserPermissions> {

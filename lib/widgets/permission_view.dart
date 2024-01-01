@@ -13,8 +13,10 @@ import 'package:permission_policy/permission_policy.dart';
 /// ```
 class PermissionView extends StatelessWidget {
   const PermissionView(
-      {Key? key, required this.child, required this.permissions, this.loading})
-      : super(key: key);
+      {super.key,
+      required this.child,
+      required this.permissions,
+      this.loading});
 
   final List<String> permissions;
   final Widget? loading;

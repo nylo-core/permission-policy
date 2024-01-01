@@ -14,12 +14,11 @@ import 'package:permission_policy/permission_policy.dart';
 /// ```
 class RoleView extends StatelessWidget {
   const RoleView(
-      {Key? key,
+      {super.key,
       required this.roles,
       required this.child,
       this.defaultView,
-      this.loading})
-      : super(key: key);
+      this.loading});
 
   final Widget? loading, defaultView;
   final List<String> roles;
