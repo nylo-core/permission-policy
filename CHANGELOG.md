@@ -1,3 +1,7 @@
+## [1.1.3] - 2024-01-02
+
+* Add FUNDING.yml
+
 ## [1.1.2] - 2024-01-01
 
 * Update license date
