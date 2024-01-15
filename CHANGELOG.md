@@ -1,3 +1,7 @@
+## [1.1.4] - 2024-01-02
+
+* Update pubspec.yaml
+
 ## [1.1.3] - 2024-01-02
 
 * Add FUNDING.yml
