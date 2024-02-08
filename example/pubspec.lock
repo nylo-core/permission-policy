@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: animate_do
-      sha256: "77d67a1d9394d23106f8a3ca2a25b948ae35aeb134ff9d3cc80f085993765c72"
+      sha256: "8a9d0f91d066d5f86bd9de9455e5741e6bbb284b114c76375f01584065dd3da1"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.1"
+    version: "3.3.3"
   async:
     dependency: transitive
     description:
@@ -163,6 +163,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  flutter_staggered_grid_view:
+    dependency: transitive
+    description:
+      name: flutter_staggered_grid_view
+      sha256: "19e7abb550c96fbfeb546b23f3ff356ee7c59a019a651f8f102a4ba9b7349395"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
   flutter_styled_toast:
     dependency: transitive
     description:
@@ -241,10 +249,10 @@ packages:
     dependency: transitive
     description:
       name: nylo_support
-      sha256: "14f8fd40cd9f60d5e185705c60bc9febb26dbad9292d714f1769dcb714a7d96c"
+      sha256: e2ba148a93914bf93763b9c68ca40155fa215cb418f4f4423f99a59578f41c4a
       url: "https://pub.dev"
     source: hosted
-    version: "5.39.0"
+    version: "5.44.0"
   page_transition:
     dependency: transitive
     description:
@@ -315,7 +323,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.1.7"
+    version: "1.1.8"
   platform:
     dependency: transitive
     description:
