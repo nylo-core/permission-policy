@@ -1,3 +1,7 @@
+## [1.1.12] - 2024-03-07
+
+* Update pubspec.yaml
+
 ## [1.1.11] - 2024-02-28
 
 * Update workflow
