@@ -1,9 +1,9 @@
 # This is a generated file; do not edit or check into version control.
-flutter_secure_storage=/Users/anthony/.pub-cache/hosted/pub.dev/flutter_secure_storage-9.0.0/
-flutter_secure_storage_linux=/Users/anthony/.pub-cache/hosted/pub.dev/flutter_secure_storage_linux-1.2.0/
-flutter_secure_storage_macos=/Users/anthony/.pub-cache/hosted/pub.dev/flutter_secure_storage_macos-3.0.1/
-flutter_secure_storage_web=/Users/anthony/.pub-cache/hosted/pub.dev/flutter_secure_storage_web-1.1.2/
-flutter_secure_storage_windows=/Users/anthony/.pub-cache/hosted/pub.dev/flutter_secure_storage_windows-3.0.0/
+flutter_secure_storage=/Users/anthony/.pub-cache/hosted/pub.dev/flutter_secure_storage-9.1.1/
+flutter_secure_storage_linux=/Users/anthony/.pub-cache/hosted/pub.dev/flutter_secure_storage_linux-1.2.1/
+flutter_secure_storage_macos=/Users/anthony/.pub-cache/hosted/pub.dev/flutter_secure_storage_macos-3.1.0/
+flutter_secure_storage_web=/Users/anthony/.pub-cache/hosted/pub.dev/flutter_secure_storage_web-1.2.1/
+flutter_secure_storage_windows=/Users/anthony/.pub-cache/hosted/pub.dev/flutter_secure_storage_windows-3.1.2/
 path_provider=/Users/anthony/.pub-cache/hosted/pub.dev/path_provider-2.1.3/
 path_provider_android=/Users/anthony/.pub-cache/hosted/pub.dev/path_provider_android-2.2.4/
 path_provider_foundation=/Users/anthony/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.2/

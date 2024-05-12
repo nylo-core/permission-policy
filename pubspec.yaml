@@ -1,6 +1,6 @@
 name: permission_policy
 description: Permission policy helps you manage permissions in your Flutter application.
-version: 1.1.23
+version: 1.1.24
 homepage: https://nylo.dev
 repository: https://github.com/nylo-core/permission-policy
 issue_tracker: https://github.com/nylo-core/permission-policy/issues
@@ -18,7 +18,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  nylo_support: ^5.68.1
+  nylo_support: ^5.69.0
 
 dev_dependencies:
   flutter_test:
