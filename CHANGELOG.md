@@ -1,3 +1,7 @@
+## [1.2.1] - 2024-06-15
+
+* Update pubspec.yaml
+
 ## [1.2.0] - 2024-06-13
 
 * Update parameter position in `PermissionView`
