@@ -143,7 +143,7 @@ Add the following to your `pubspec.yaml` file:
 
 ``` yaml
 dependencies:
-  permission_policy: ^1.2.1
+  permission_policy: ^1.2.2
 ```
 
 or with Dart:
