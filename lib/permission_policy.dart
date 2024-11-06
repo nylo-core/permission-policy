@@ -1,8 +1,6 @@
-library permission_policy;
-
 import 'package:flutter/cupertino.dart';
 import 'package:nylo_support/helpers/backpack.dart';
-import 'package:nylo_support/helpers/helper.dart';
+import 'package:nylo_support/local_storage/local_storage.dart';
 import 'package:nylo_support/nylo.dart';
 import 'package:permission_policy/typedefs.dart';
 export 'package:permission_policy/typedefs.dart';
@@ -33,7 +31,7 @@ class PermissionPolicy {
     if (!Backpack.instance.isNyloInitialized()) {
       Nylo nylo = Nylo();
       nylo.addLoader(const CupertinoActivityIndicator());
-      Backpack.instance.set('nylo', nylo);
+      Backpack.instance.save('nylo', nylo);
     }
 
     _roleAndPermissions = roles;

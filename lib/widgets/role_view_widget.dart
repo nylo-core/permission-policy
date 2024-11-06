@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nylo_support/widgets/ny_base_state.dart';
 import 'package:nylo_support/widgets/ny_future_builder.dart';
 import 'package:permission_policy/permission_policy.dart';
 
@@ -27,21 +28,23 @@ class RoleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NyFutureBuilder(
-        future: PermissionPolicy.getRoles(),
-        child: (context, roles) {
-          if (roles == null || roles.isEmpty) {
-            if (defaultView != null) {
-              return defaultView!;
-            }
-            return const SizedBox.shrink();
-          }
-          for (var role in roles) {
-            if (this.roles.contains(role)) {
-              return child;
-            }
+      future: PermissionPolicy.getRoles(),
+      child: (context, roles) {
+        if (roles == null || roles.isEmpty) {
+          if (defaultView != null) {
+            return defaultView!;
           }
           return const SizedBox.shrink();
-        },
-        loading: loading == null ? const SizedBox.shrink() : loading!);
+        }
+        for (var role in roles) {
+          if (this.roles.contains(role)) {
+            return child;
+          }
+        }
+        return const SizedBox.shrink();
+      },
+      loadingStyle: LoadingStyle.normal(
+          child: loading == null ? const SizedBox.shrink() : loading!),
+    );
   }
 }
