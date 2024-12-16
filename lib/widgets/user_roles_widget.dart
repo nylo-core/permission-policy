@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nylo_support/helpers/extensions.dart';
-import 'package:nylo_support/widgets/ny_base_state.dart';
+import 'package:nylo_support/helpers/loading_style.dart';
 import 'package:nylo_support/widgets/ny_future_builder.dart';
 import 'package:nylo_support/widgets/ny_state.dart';
 import 'package:permission_policy/permission_policy.dart';
