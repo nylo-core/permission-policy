@@ -80,7 +80,7 @@ class PermissionPolicy {
       List<String> permissions =
           PermissionPolicy.instance.findPermissionsForRole(role);
 
-      if (permissions.contains(role)) {
+      if (permissions.contains(permission)) {
         return true;
       }
     }
