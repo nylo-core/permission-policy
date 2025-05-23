@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:nylo_support/helpers/backpack.dart';
 import 'package:nylo_support/local_storage/local_storage.dart';
 import 'package:nylo_support/nylo.dart';
-import 'package:permission_policy/typedefs.dart';
-export 'package:permission_policy/typedefs.dart';
-export 'package:permission_policy/widgets/permission_view.dart';
-export 'package:permission_policy/widgets/role_selector_widget.dart';
-export 'package:permission_policy/widgets/role_view_widget.dart';
-export 'package:permission_policy/widgets/user_roles_widget.dart';
-export 'package:permission_policy/widgets/user_permissions_widget.dart';
+
+import '/typedefs.dart';
+export '/typedefs.dart';
+export '/widgets/permission_view.dart';
+export '/widgets/role_selector_widget.dart';
+export '/widgets/role_view_widget.dart';
+export '/widgets/user_roles_widget.dart';
+export '/widgets/user_permissions_widget.dart';
 
 /// Permission policy is a simple way to manage permissions for your app.
 class PermissionPolicy {
