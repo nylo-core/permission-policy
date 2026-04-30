@@ -625,20 +625,11 @@ void main() {
           roles: [
             Role(id: 'r1', name: 'R1', permissions: ['a']),
             Role(
-                id: 'r2',
-                name: 'R2',
-                permissions: ['b'],
-                inheritsFrom: ['r1']),
+                id: 'r2', name: 'R2', permissions: ['b'], inheritsFrom: ['r1']),
             Role(
-                id: 'r3',
-                name: 'R3',
-                permissions: ['c'],
-                inheritsFrom: ['r2']),
+                id: 'r3', name: 'R3', permissions: ['c'], inheritsFrom: ['r2']),
             Role(
-                id: 'r4',
-                name: 'R4',
-                permissions: ['d'],
-                inheritsFrom: ['r3']),
+                id: 'r4', name: 'R4', permissions: ['d'], inheritsFrom: ['r3']),
           ],
         );
 
@@ -679,15 +670,9 @@ void main() {
           ],
           roles: [
             Role(
-                id: 'r1',
-                name: 'R1',
-                permissions: ['a'],
-                inheritsFrom: ['r2']),
+                id: 'r1', name: 'R1', permissions: ['a'], inheritsFrom: ['r2']),
             Role(
-                id: 'r2',
-                name: 'R2',
-                permissions: ['b'],
-                inheritsFrom: ['r1']),
+                id: 'r2', name: 'R2', permissions: ['b'], inheritsFrom: ['r1']),
           ],
         );
 
@@ -729,8 +714,7 @@ void main() {
             Permission(id: 'admin', name: 'Admin', inheritsFrom: ['write']),
           ],
           roles: [
-            Role(
-                id: 'superadmin', name: 'Super Admin', permissions: ['admin']),
+            Role(id: 'superadmin', name: 'Super Admin', permissions: ['admin']),
           ],
         );
 
@@ -830,7 +814,9 @@ void main() {
       test('repeated permission checks use cache', () async {
         await service.configure(
           permissions: [Permission(id: 'read', name: 'Read')],
-          roles: [Role(id: 'viewer', name: 'Viewer', permissions: ['read'])],
+          roles: [
+            Role(id: 'viewer', name: 'Viewer', permissions: ['read'])
+          ],
         );
         await service.giveRole('viewer');
 
@@ -850,10 +836,7 @@ void main() {
           ],
           roles: [
             Role(id: 'viewer', name: 'Viewer', permissions: ['read']),
-            Role(
-                id: 'editor',
-                name: 'Editor',
-                permissions: ['read', 'write']),
+            Role(id: 'editor', name: 'Editor', permissions: ['read', 'write']),
           ],
         );
 
@@ -868,7 +851,9 @@ void main() {
       test('cache invalidates when configuration changes', () async {
         await service.configure(
           permissions: [Permission(id: 'read', name: 'Read')],
-          roles: [Role(id: 'viewer', name: 'Viewer', permissions: ['read'])],
+          roles: [
+            Role(id: 'viewer', name: 'Viewer', permissions: ['read'])
+          ],
         );
         await service.giveRole('viewer');
 
@@ -989,10 +974,7 @@ void main() {
           ],
           roles: [
             Role(id: 'viewer', name: 'Viewer', permissions: ['read']),
-            Role(
-                id: 'editor',
-                name: 'Editor',
-                permissions: ['read', 'write']),
+            Role(id: 'editor', name: 'Editor', permissions: ['read', 'write']),
             Role(
               id: 'admin',
               name: 'Admin',
@@ -1102,10 +1084,7 @@ void main() {
             Permission(id: 'write', name: 'Write'),
           ],
           roles: [
-            Role(
-                id: 'editor',
-                name: 'Editor',
-                permissions: ['read', 'write']),
+            Role(id: 'editor', name: 'Editor', permissions: ['read', 'write']),
           ],
         );
         await policy.giveRole('editor');
@@ -1176,7 +1155,9 @@ void main() {
     test('device with no roles', () async {
       await policy.configure(
         permissions: [Permission(id: 'read', name: 'Read')],
-        roles: [Role(id: 'viewer', name: 'Viewer', permissions: ['read'])],
+        roles: [
+          Role(id: 'viewer', name: 'Viewer', permissions: ['read'])
+        ],
       );
       expect(await policy.hasPermission('read'), false);
       expect(await policy.getDevicePermissions(), isEmpty);
@@ -1185,7 +1166,9 @@ void main() {
     test('device with non-existent role id', () async {
       await policy.configure(
         permissions: [Permission(id: 'read', name: 'Read')],
-        roles: [Role(id: 'viewer', name: 'Viewer', permissions: ['read'])],
+        roles: [
+          Role(id: 'viewer', name: 'Viewer', permissions: ['read'])
+        ],
       );
       await policy.giveRole('nonexistent');
       expect(await policy.hasPermission('read'), false);
@@ -1213,8 +1196,7 @@ void main() {
       expect(perms, contains('read'));
     });
 
-    test('permission references non-existent parent in inheritsFrom',
-        () async {
+    test('permission references non-existent parent in inheritsFrom', () async {
       await policy.configure(
         permissions: [
           Permission(
@@ -1259,7 +1241,9 @@ void main() {
     test('reconfiguring clears previous data', () async {
       await policy.configure(
         permissions: [Permission(id: 'old', name: 'Old')],
-        roles: [Role(id: 'old_role', name: 'Old Role', permissions: ['old'])],
+        roles: [
+          Role(id: 'old_role', name: 'Old Role', permissions: ['old'])
+        ],
       );
       await policy.giveRole('old_role');
       expect(await policy.hasPermission('old'), true);
@@ -1267,7 +1251,9 @@ void main() {
       // Reconfigure without the old permission
       await policy.configure(
         permissions: [Permission(id: 'new', name: 'New')],
-        roles: [Role(id: 'old_role', name: 'Old Role', permissions: ['new'])],
+        roles: [
+          Role(id: 'old_role', name: 'Old Role', permissions: ['new'])
+        ],
       );
       expect(await policy.hasPermission('old'), false);
       expect(await policy.hasPermission('new'), true);

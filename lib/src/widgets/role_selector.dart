@@ -214,9 +214,7 @@ class _RoleSelectorState extends State<RoleSelector> {
               isSelected
                   ? Icons.radio_button_checked
                   : Icons.radio_button_unchecked,
-              color: isSelected
-                  ? Theme.of(context).colorScheme.primary
-                  : null,
+              color: isSelected ? Theme.of(context).colorScheme.primary : null,
             ),
       onTap: () => _toggleRole(role),
       selected: isSelected,
