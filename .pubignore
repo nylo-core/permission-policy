@@ -1,3 +1,34 @@
+# Build artifacts
+build/
+example/build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
 example/.flutter-plugins
 example/.flutter-plugins-dependencies
-example/main.dart
+
+# iOS
+example/ios/Pods/
+example/ios/.symlinks/
+example/ios/Flutter/Flutter.framework
+example/ios/Flutter/Flutter.podspec
+
+# Android
+example/android/.gradle/
+example/android/app/debug/
+example/android/app/profile/
+example/android/app/release/
+
+# IDE
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
+
+# Internal docs
+CLAUDE.md
+.claude/
+
+# OS
+.DS_Store

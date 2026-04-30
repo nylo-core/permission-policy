@@ -1,3 +1,111 @@
+## [3.0.0] - 2026-04-30
+
+### Major Release — Complete Rewrite
+
+The v2 API has been removed and replaced with a typed, async, hierarchical permission system. There is no automatic migration: existing v2 users must reconfigure their permissions and roles and update widget call sites.
+
+### New Features
+
+* **Typed models** — `Permission` and `Role` replace plain strings, with `toMap`/`fromMap` and (for `Permission`) `toJson`/`fromJson` serialization
+* **Permission inheritance** — permissions can inherit from other permissions via `inheritsFrom`
+* **Role inheritance** — roles can inherit permissions from other roles via `inheritsFrom`
+* **Cycle detection** — both inheritance walks detect cycles and stop safely
+* **Detailed results** — `PermissionResult` returns `granted`, `reason`, `contributingRoles`, and `contributingPermissions`
+* **`PermissionCheck` enum** — pick `all` (default) or `any` semantics when checking multiple permissions or roles
+* **Pluggable storage** — implement `PermissionStorage` to back the package with any storage layer. Default uses `nylo_support`'s `NyStorage`.
+* **Permission caching** — resolved permissions are cached per device and invalidated automatically on `configure`, `giveRole`, `removeRole`, `clearRoles`, and `clearAll`
+* **New widgets:**
+  * `PermissionGuard` — conditionally render a child based on permissions or roles, with optional `fallback` and `loading` widgets
+  * `PermissionBuilder` — builder-pattern widget that exposes the granted state and full `PermissionResult`
+  * `RoleSelector` — interactive role selector with `list`, `chips`, and `cards` styles via `RoleSelectorStyle`
+* **Testing helper** — `PermissionPolicy.reset()` clears the singleton for clean test setup
+
+### Public API
+
+```dart
+// Configure
+await PermissionPolicy.instance.configure(
+  permissions: [Permission(id: 'read', name: 'Read')],
+  roles: [Role(id: 'user', name: 'User', permissions: ['read'])],
+);
+
+// Or simple map form (auto-creates Permission objects)
+await PermissionPolicy.instance.configureSimple({
+  'admin': ['read', 'write', 'delete'],
+});
+
+// Assign roles to the device
+await PermissionPolicy.instance.giveRole('admin');
+
+// Check permissions
+final hasRead = await PermissionPolicy.instance.hasPermission('read');
+final result = await PermissionPolicy.instance.checkPermission('read');
+print(result.granted); // bool
+print(result.reason);  // explanation
+
+// Custom storage (replaces the singleton)
+PermissionPolicy.createWithStorage(MyCustomStorage());
+```
+
+### Breaking Changes
+
+* **Device-level only** — there is no user model. Roles are assigned to the device, not to individual users. If you need per-user permissions, manage user identity in your app and call `clearRoles()` / `giveRole()` when the user changes.
+* **All storage operations are now `async`** — every public method returns a `Future`.
+* **Removed APIs:**
+  * `RoleAndPermissions` typedef
+  * `PermissionPolicy.addRoles(Map)` — use `configure(...)` or `configureSimple(...)`
+  * Static call sites such as `PermissionPolicy.giveRole(...)` — call via `PermissionPolicy.instance.giveRole(...)`
+  * `PermissionView` widget — replaced by `PermissionGuard`
+  * `RoleView` widget — use `PermissionGuard(roles: [...])`
+  * `RoleSelector` (v2 string-based) — replaced by a new typed `RoleSelector` with a different API surface
+  * `UserRoles` widget — call `getDeviceRoles()` and render your own UI
+  * `UserPermissions` widget — call `getDevicePermissions()` and render your own UI
+* **Storage keys changed** — v3 uses different storage keys, so existing v2 role assignments will not be visible to v3. Reconfigure roles on first launch after upgrading.
+
+### Migration from v2
+
+**Before (v2):**
+```dart
+PermissionPolicy.instance.addRoles({
+  'admin': ['read', 'write', 'delete'],
+  'user': ['read'],
+});
+
+await PermissionPolicy.giveRole('user');
+bool hasPermission = await PermissionPolicy.hasPermission('read');
+```
+
+**After (v3):**
+```dart
+await PermissionPolicy.instance.configureSimple({
+  'admin': ['read', 'write', 'delete'],
+  'user': ['read'],
+});
+
+await PermissionPolicy.instance.giveRole('user');
+bool hasPermission = await PermissionPolicy.instance.hasPermission('read');
+```
+
+**Widget migration:**
+```dart
+// v2
+PermissionView(child: Text('Subscribe'), permissions: ['can_subscribe'])
+
+// v3
+PermissionGuard(
+  permissions: ['can_subscribe'],
+  child: Text('Subscribe'),
+  fallback: SizedBox.shrink(),
+)
+```
+
+### Notes
+
+* Requires Flutter SDK 3.1.4+ and Dart SDK `>=3.1.4 <4.0.0`
+* Continues to depend on `nylo_support: ^6.28.5`
+* Permission widgets resolve once when mounted; trigger a rebuild (e.g. via `setState` or a fresh `Key`) after `giveRole` / `removeRole` if the same widget should reflect the new state
+* See README for the full API reference, custom-storage example, and testing patterns
+
 ## [2.0.8] - 2025-05-23
 
 * Update pubspec.yaml
