@@ -24,7 +24,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  permission_policy: ^3.1.0
+  permission_policy: ^3.2.0
 ```
 
 Or with the Dart CLI:

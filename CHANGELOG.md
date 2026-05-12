@@ -1,3 +1,19 @@
+## [3.2.0] - 2026-05-12
+
+### Added
+
+* **`PermissionPolicy.instance.getPermissionsForRole(roleId)`** — returns the permissions granted by a given role id, without needing to assign the role to the device. By default, role and permission inheritance are fully resolved; pass `includeInherited: false` to get only the directly declared permissions on the role. Returns an empty set if the role does not exist.
+
+  ```dart
+  // Effective permissions for the 'admin' role, inheritance resolved
+  final Set<String> effective =
+      await PermissionPolicy.instance.getPermissionsForRole('admin');
+
+  // Just the declared permissions on the role (no inheritance)
+  final Set<String> declared = await PermissionPolicy.instance
+      .getPermissionsForRole('admin', includeInherited: false);
+  ```
+
 ## [3.1.0] - 2026-05-12
 
 ### Changed

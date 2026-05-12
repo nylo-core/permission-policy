@@ -788,6 +788,65 @@ void main() {
       });
     });
 
+    group('getPermissionsForRole', () {
+      setUp(() async {
+        await service.configure(
+          permissions: [
+            Permission(id: 'view', name: 'View'),
+            Permission(id: 'read', name: 'Read', inheritsFrom: ['view']),
+            Permission(id: 'write', name: 'Write'),
+            Permission(id: 'delete', name: 'Delete'),
+          ],
+          roles: [
+            Role(id: 'viewer', name: 'Viewer', permissions: ['read']),
+            Role(
+              id: 'editor',
+              name: 'Editor',
+              permissions: ['write'],
+              inheritsFrom: ['viewer'],
+            ),
+            Role(
+              id: 'admin',
+              name: 'Admin',
+              permissions: ['delete'],
+              inheritsFrom: ['editor'],
+            ),
+          ],
+        );
+      });
+
+      test('returns declared permissions only when includeInherited is false',
+          () async {
+        final perms = await service.getPermissionsForRole(
+          'editor',
+          includeInherited: false,
+        );
+        expect(perms, equals({'write'}));
+      });
+
+      test('resolves role inheritance by default', () async {
+        final perms = await service.getPermissionsForRole('admin');
+        expect(perms, containsAll(['read', 'write', 'delete']));
+      });
+
+      test('resolves permission inheritance by default', () async {
+        final perms = await service.getPermissionsForRole('viewer');
+        // 'read' inherits from 'view'
+        expect(perms, containsAll(['view', 'read']));
+      });
+
+      test('returns empty set when role does not exist', () async {
+        final perms = await service.getPermissionsForRole('ghost');
+        expect(perms, isEmpty);
+      });
+
+      test('does not require role to be assigned to the device', () async {
+        expect(await service.getDeviceRoles(), isEmpty);
+        final perms = await service.getPermissionsForRole('admin');
+        expect(perms, containsAll(['read', 'write', 'delete']));
+      });
+    });
+
     group('clear operations', () {
       test('clearRoles clears device roles', () async {
         await service.giveRole('admin');

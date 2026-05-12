@@ -46,6 +46,26 @@ class PermissionService {
     return roles.where((role) => role.isAssignable).toList();
   }
 
+  /// Get the permissions granted by [roleId].
+  ///
+  /// By default, role and permission inheritance are fully resolved. Pass
+  /// `includeInherited: false` to get only the directly declared permissions
+  /// on the role (equivalent to `Role.permissions`).
+  ///
+  /// Returns an empty set if no role with that id exists.
+  Future<Set<String>> getPermissionsForRole(
+    String roleId, {
+    bool includeInherited = true,
+  }) async {
+    final roles = await getRoles();
+    final role = roles.where((r) => r.id == roleId).firstOrNull;
+    if (role == null) return <String>{};
+
+    if (!includeInherited) return role.permissions.toSet();
+
+    return resolveRolePermissions(role, roles);
+  }
+
   /// Get the device's assigned role IDs
   Future<List<String>> getDeviceRoles() async {
     return await _storage.getDeviceRoles();

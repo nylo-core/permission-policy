@@ -197,6 +197,23 @@ class PermissionPolicy {
     return await _service.getAssignableRoles();
   }
 
+  /// Get the permissions granted by [roleId].
+  ///
+  /// By default, role and permission inheritance are fully resolved. Pass
+  /// `includeInherited: false` to get only the directly declared permissions
+  /// on the role (equivalent to `Role.permissions`).
+  ///
+  /// Returns an empty set if no role with that id exists.
+  Future<Set<String>> getPermissionsForRole(
+    String roleId, {
+    bool includeInherited = true,
+  }) async {
+    return await _service.getPermissionsForRole(
+      roleId,
+      includeInherited: includeInherited,
+    );
+  }
+
   /// Clear all roles for the device
   Future<void> clearRoles() async {
     await _service.clearRoles();
