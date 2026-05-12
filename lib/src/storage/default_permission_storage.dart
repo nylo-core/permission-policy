@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:nylo_support/local_storage/local_storage.dart';
+import 'package:nylo_support/local_storage/ny_local_storage.dart';
 import '../models/permission.dart';
 import '../models/role.dart';
 import 'permission_storage.dart';

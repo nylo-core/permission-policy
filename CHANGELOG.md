@@ -1,3 +1,10 @@
+## [3.1.0] - 2026-05-12
+
+### Changed
+
+* Upgraded `nylo_support` dependency to `^7.24.2` (was `^6.28.5`). Consumers must now use `nylo_support` v7 or later.
+* Updated the internal storage layer's import path to match the new `nylo_support` v7 module layout (`local_storage/ny_local_storage.dart`). No public API change.
+
 ## [3.0.0] - 2026-04-30
 
 ### Major Release — Complete Rewrite

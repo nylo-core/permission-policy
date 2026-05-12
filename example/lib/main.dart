@@ -16,7 +16,7 @@ Future<void> initializePermissions() async {
 
   // Configure with detailed permissions and roles
   await policy.configure(
-    permissions: [
+    permissions: const [
       Permission(
         id: 'view_content',
         name: 'View Content',
@@ -67,7 +67,7 @@ Future<void> initializePermissions() async {
         priority: 5,
       ),
     ],
-    roles: [
+    roles: const [
       Role(
         id: 'guest',
         name: 'Guest',
@@ -207,20 +207,20 @@ class _MyHomePageState extends State<MyHomePage> {
               // Basic content viewing
               PermissionGuard(
                 permissions: const ['view_content'],
-                child: Card(
-                  color: Colors.green.shade50,
-                  child: const ListTile(
-                    leading: Icon(Icons.visibility, color: Colors.green),
-                    title: Text('Basic Content'),
-                    subtitle: Text('You can view regular content'),
-                  ),
-                ),
                 fallback: Card(
                   color: Colors.red.shade50,
                   child: const ListTile(
                     leading: Icon(Icons.visibility_off, color: Colors.red),
                     title: Text('Basic Content'),
                     subtitle: Text('No permission to view content'),
+                  ),
+                ),
+                child: Card(
+                  color: Colors.green.shade50,
+                  child: const ListTile(
+                    leading: Icon(Icons.visibility, color: Colors.green),
+                    title: Text('Basic Content'),
+                    subtitle: Text('You can view regular content'),
                   ),
                 ),
               ),
@@ -230,20 +230,20 @@ class _MyHomePageState extends State<MyHomePage> {
               // Exclusive content
               PermissionGuard(
                 permissions: const ['view_exclusive_content'],
-                child: Card(
-                  color: Colors.purple.shade50,
-                  child: const ListTile(
-                    leading: Icon(Icons.star, color: Colors.purple),
-                    title: Text('Exclusive Content'),
-                    subtitle: Text('You have access to premium content!'),
-                  ),
-                ),
                 fallback: Card(
                   color: Colors.grey.shade50,
                   child: const ListTile(
                     leading: Icon(Icons.star_border, color: Colors.grey),
                     title: Text('Exclusive Content'),
                     subtitle: Text('Subscribe to access premium content'),
+                  ),
+                ),
+                child: Card(
+                  color: Colors.purple.shade50,
+                  child: const ListTile(
+                    leading: Icon(Icons.star, color: Colors.purple),
+                    title: Text('Exclusive Content'),
+                    subtitle: Text('You have access to premium content!'),
                   ),
                 ),
               ),
@@ -253,6 +253,7 @@ class _MyHomePageState extends State<MyHomePage> {
               // Content creation
               PermissionGuard(
                 permissions: const ['create_content'],
+                fallback: const SizedBox.shrink(),
                 child: Card(
                   color: Colors.blue.shade50,
                   child: const ListTile(
@@ -261,12 +262,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     subtitle: Text('You can create new content'),
                   ),
                 ),
-                fallback: const SizedBox.shrink(),
               ),
 
               // Content editing (uses permission inheritance)
               PermissionGuard(
                 permissions: const ['edit_content'],
+                fallback: const SizedBox.shrink(),
                 child: Card(
                   color: Colors.orange.shade50,
                   child: const ListTile(
@@ -276,12 +277,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         'You can edit content (includes create permission)'),
                   ),
                 ),
-                fallback: const SizedBox.shrink(),
               ),
 
               // Admin functions
               PermissionGuard(
                 permissions: const ['manage_users'],
+                fallback: const SizedBox.shrink(),
                 child: Card(
                   color: Colors.red.shade50,
                   child: const ListTile(
@@ -291,7 +292,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     subtitle: Text('You can manage user accounts'),
                   ),
                 ),
-                fallback: const SizedBox.shrink(),
               ),
 
               const SizedBox(height: 20),
