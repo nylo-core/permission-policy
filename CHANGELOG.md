@@ -1,3 +1,13 @@
+## [3.2.1] - 2026-08-02
+
+### Changed
+
+* Upgraded `nylo_support` dependency to `^7.27.4` (was `^7.24.2`).
+* Upgraded `flutter_lints` dev dependency to `^6.0.0` (was `^5.0.0`).
+* Refreshed the example app's lockfile to match the updated dependencies.
+
+No public API changes.
+
 ## [3.2.0] - 2026-05-12
 
 ### Added

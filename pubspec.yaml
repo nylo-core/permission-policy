@@ -1,6 +1,6 @@
 name: permission_policy
 description: A flexible and powerful permission management system for Flutter applications with role-based access control, hierarchical permissions, and customizable UI components.
-version: 3.2.0
+version: 3.2.1
 homepage: https://nylo.dev
 repository: https://github.com/nylo-core/permission-policy
 issue_tracker: https://github.com/nylo-core/permission-policy/issues
@@ -16,14 +16,14 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  nylo_support: ^7.24.2
+  nylo_support: ^7.27.4
   flutter:
     sdk: flutter
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 screenshots:
   - description: The Nylo package logo.
